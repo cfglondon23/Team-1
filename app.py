@@ -35,7 +35,10 @@ def provider_submit():
 
 @app.route('/volunteer/apply')
 def volunteer_apply():
-    return "volunteer_apply"
+    c.execute("SELECT event.*, school.location, school.name, school.city FROM event INNER JOIN school ON event.schid = school.schid")
+    events = c.fetchall()
+    return render_template("volunteer_dashboard.html", events=events)
+
 
 @app.route('/volunteer/ranking') 
 def volunteer_ranking():
