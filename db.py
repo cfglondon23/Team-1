@@ -18,6 +18,8 @@ c.execute('''CREATE TABLE IF NOT EXISTS school
              (schid INTEGER PRIMARY KEY, location TEXT, city TEXT, name TEXT, info TEXT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS event
              (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS eventschool
+             (eventid INTEGER PRIMARY KEY, schid INTEGER)''')
 
 
 # Create a Faker instance to generate random names
@@ -33,12 +35,33 @@ for i in range(20):
     points = random.randint(0, 250)
     location = random.choice(cities)
     c.execute(f"INSERT INTO volunteers (firstname, lastname, points, location) VALUES ('{firstname}', '{lastname}', {points}, '{location}')")
+# insert some mock data into the school table
+schools = [(1, 'Oxford', 'Oxfordshire', 'Oxford High School', 'A leading independent girls\' school'), 
+           (2, 'Windsor', 'Berkshire', 'Eton College', 'A prestigious independent boys\' boarding school'), 
+           (3, 'London', 'Greater London', 'St Paul\'s School', 'An independent school for boys aged 7-18'), 
+           (4, 'Elstree', 'Hertfordshire', 'Haberdashers\' Aske\'s Boys\' School', 'An independent day school for boys aged 5-18'), 
+           (5, 'Cheadle Hulme', 'Greater Manchester', 'Cheadle Hulme School', 'A leading independent day school for boys and girls aged 3-18'), 
+           (6, 'Rochester', 'Kent', 'St. John Fisher Catholic Primary School', 'A primary school in Rochester'), 
+           (7, 'London', 'Greater London', 'St. Saviour\'s Church of England Primary School', 'A primary school in London'), 
+           (8, 'Basingstoke', 'Hampshire', 'Great Binfields Primary School', 'A primary school in Basingstoke'), 
+           (9, 'Manchester', 'Greater Manchester', 'Chorlton Park Primary School', 'A primary school in Manchester'), 
+           (10, 'Limpsfield', 'Surrey', 'Hazelwood School', 'A co-educational school for children aged 3-13 in Surrey')]
+c.executemany("INSERT INTO school (schid, location, city, name, info) VALUES (?, ?, ?, ?, ?)", schools)
+
+events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming'), 
+          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students'), 
+          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun'), 
+          (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology'), 
+          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment'), 
+          (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces'), 
+          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance'), 
+          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community'), ]
+c.executemany("INSERT INTO event (eventid, name, schid, info) VALUES (?, ?, ?, ?)", events)
 
 # Commit the changes to the database
 conn.commit()
 
 # Execute a SELECT statement to retrieve all rows from the table
-c.execute("SELECT * FROM volunteers")
 
 # Fetch all rows from the result set
 rows = c.fetchall()
@@ -47,3 +70,10 @@ rows = c.fetchall()
 
 
 # Close the connection
+
+
+
+
+
+
+# commit changes and close the connection
