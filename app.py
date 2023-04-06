@@ -78,24 +78,26 @@ def volunteer_apply_id(variable):
 @app.route("/generate", methods=["POST"])
 def generate():
     user_input = request.form["user_input"]
-
-    # Create a chat message with the user input as the content
-    messages = [{"role": "system", "content": "You are a helpful assistant."},
+    prompt = request.form["prompt"]
+    print("user_input:",user_input)
+    print("prompt:",prompt)
+    # Create a chat message with the user input and prompt as the content
+    messages = [{"role": "system", "content": prompt},
                 {"role": "user", "content": user_input}]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",  # Replace with the correct chat model name
+        model="gpt-4",
         messages=messages,
-        max_tokens=750,
-        n=1,
-        stop=None,
         temperature=1.0,
+        max_tokens=750,
         top_p=1,
+        stop=None,
+        n=1,
     )
 
     # Extract the assistant's response
     generated_text = response.choices[0].message['content'].strip()
-    print(generated_text)
+    # print(generated_text)
     return {"generated_text": generated_text}
 
 
