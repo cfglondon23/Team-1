@@ -1,116 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <style>
-      .modal {
-        transition: opacity 0.25s ease;
-      }
-      .modal-active {
-        opacity: 1;
-      }
-      .modal-inactive {
-        opacity: 0;
-        pointer-events: none;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-200">
-    <button
-      id="openModal"
-      class="px-4 py-2 mt-8 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
-    >
-      Open Login Modal
-    </button>
+    <title>Code For good Team 1</title>
 
-    <div
-      id="loginModal"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 modal modal-inactive"
-    >
-      <div class="flex items-center justify-center w-full">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/custom.css" />
+  </head>
+  <style>
+    body {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      height: 100vh;
+    }
+    .container {
+      margin-top: 150px;
+    }
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+  <body class="flex justify-center">
+    <div class="container">
+      <div class="row">
         <div
-          class="px-8 py-6 mt-4 text-left bg-white shadow-lg rounded border-none w-5/12"
+          class="col-lg-6 col-md-12 d-flex align-items-center justify-content-center"
         >
-          <div class="flex justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-20 h-20 text-blue-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <form
+            class="form-group"
+            style="
+              max-width: 420px;
+              font-family: Helvetica;
+              font-weight: 600;
+              color: #484848;
+            "
+          >
+            <h1
+              class="mb-3 text-white"
+              style="font-size: 2em; font-weight: bold"
             >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path
-                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-center">Login to your account</h3>
-          <form action="">
-            <div class="mt-4 px-10">
-              <div>
-                <label class="block" for="email">Email</label>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 w-48"
-                  required
-                />
+              Our Education providers need your help! please select your
+              location and user type.
+            </h1>
+            <div class="form-group" style="font-size: small">
+              <div class="form-group" style="font-size: small">
+                <label class="text-white">USER TYPE</label><br />
+                <select class="custom-select">
+                  <option selected>Volunteer</option>
+                  <option value="2">Education Provider</option>
+                </select>
               </div>
-              <div class="mt-4">
-                <label class="block">Password</label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                />
-              </div>
-              <div class="flex items-baseline justify-between">
-                <button
-                  class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
-                >
-                  Login
-                </button>
-                <a href="#" class="text-sm text-blue-600 hover:underline"
-                  >Forgot password?</a
-                >
-              </div>
+              <label class="text-white">LOCATION</label><br />
+              <select class="custom-select" id="location_selection">
+                <option value="london">London</option>
+                <option value="durham">Durham</option>
+                <option value="Loughborough">Loughborough</option>
+                <option value="netherlands">Netherlands</option>
+                <option value="cambridge">Cambridge</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <button
+                id="search"
+                type="button"
+                class="btn btn-primary btn-lg"
+                style="float: right"
+              >
+                Register
+              </button>
             </div>
           </form>
+        </div>
+        <div class="col-lg-6 col-md-12" id="maps">
+          <iframe
+            width="100%"
+            height="400"
+            frameborder="0"
+            scrolling="no"
+            marginheight="0"
+            marginwidth="0"
+            id="gmap_canvas"
+            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20$london&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+          ></iframe>
         </div>
       </div>
     </div>
 
+    <script src="/client/main.js"></script>
     <script>
-      const openModalButton = document.getElementById("openModal");
-      const loginModal = document.getElementById("loginModal");
+      function initMap() {
+        const u = { lat: -25.344, lng: 131.031 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: u,
+        });
+        const marker = new google.maps.Marker({
+          position: uu,
+          map: map,
+        });
+      }
 
-      openModalButton.addEventListener("click", () => {
-        loginModal.classList.remove("modal-inactive");
-        loginModal.classList.add("modal-active");
-      });
+      window.initMap = initMap;
+      const select = document.getElementById("location_selection");
+      const iframe = document.getElementById("gmap_canvas");
 
-      loginModal.addEventListener("click", (event) => {
-        if (event.target === loginModal) {
-          loginModal.classList.remove("modal-active");
-          loginModal.classList.add("modal-inactive");
-        }
+      select.addEventListener("change", () => {
+        const selectedValue = select.value;
+        const mapUrl = `https://maps.google.com/maps?width=520&height=400&hl=en&q=%20${selectedValue}()&t=&z=12&ie=UTF8&iwloc=B&output=embed`;
+        iframe.src = mapUrl;
       });
     </script>
   </body>
