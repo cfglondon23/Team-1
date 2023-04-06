@@ -45,12 +45,26 @@
   }
 }
 
-.table-row {
-  animation-name: slideIn;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
 
+.gold-gradient {
+    background-image: linear-gradient(to right, rgba(255, 217, 0, 0.875) 50%, transparent 50%);
+  }
+
+ 
+
+  .gold-gradient, .silver-gradient, .bronze-gradient {
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 2.5s ease-out;
+  }
+
+  .gold-gradient:hover, .silver-gradient:hover, .bronze-gradient:hover {
+    background-position: 0% 0;
+  }
+
+  .table-row {
+    transition: background-color 2.5s ease-out;
+  }
   </style>
  <body>
     <div class="container">
@@ -64,16 +78,23 @@
             <th scope="col">Location</th>
           </tr>
         </thead>
-
-       {% for idx, row in enumerate(rows)%}
-    <tr class="table-row" style="animation-delay: 0.2s;">
-        
-       <td>{{row[5]}}</td>
-       <td>{{row[1]}} {{row[2]}}</td>
-       <td>{{row[3]}}</td>
-       <td>{{row[4]}}</td>
-    </tr>
-{% endfor %}
+        {% for idx, row in enumerate(rows)%}
+        {% if idx == 0 %}
+          <tr class="table-row gold-gradient" style="animation-delay: 0.2s;">
+        {% elif idx == 1 %}
+          <tr class="table-row silver-gradient" style="animation-delay: 0.2s;">
+        {% elif idx == 2 %}
+          <tr class="table-row bronze-gradient" style="animation-delay: 0.2s;">
+        {% else %}
+          <tr class="table-row" style="animation-delay: 0.2s;">
+        {% endif %}
+          <td>{{row[5]}}</td>
+          <td>{{row[1]}} {{row[2]}}</td>
+          <td>{{row[3]}}</td>
+          <td>{{row[4]}}</td>
+        </tr>
+      {% endfor %}
+      
           <!-- Add more table rows here -->
         </tbody>
       </table>

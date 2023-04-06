@@ -15,7 +15,7 @@ def index():
 
 @app.route('/provider/dashboard', methods=['GET','POST'])
 def provider_dashboard():
-    if request.method=='POST':
+    if request.method=='POST':  
         return redirect(url_for('provider_submit'))
     
     else:
