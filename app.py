@@ -22,8 +22,11 @@ def provider_submit():
 
 @app.route('/volunteer/apply')
 def volunteer_apply():
-    c.execute("SELECT event.*, school.location, school.name, school.city FROM event INNER JOIN school ON event.schid = school.schid")
+    c.execute("SELECT event.*, school.location, school.name, school.city, complete FROM event INNER JOIN school ON event.schid = school.schid")
     events = c.fetchall()
+    for x in events:
+        if x[-1]  == "TRUE":
+            events.remove(x)
     unique_locations = set(row[7] for row in events)
 
     return render_template("volunteer_dashboard.html", events=events, unique_locations=unique_locations)
@@ -33,8 +36,14 @@ def volunteer_apply():
 def volunteer_ranking():
     c.execute("SELECT volunteerid, firstname, lastname, points, location, RANK () OVER ( ORDER BY points DESC) Rank FROM volunteers ORDER BY Rank ASC")
     rows = c.fetchall()
+   
+
     return render_template("volunteer_ranking.html", rows=rows, enumerate=enumerate)
 
+@app.route('/volunteer/apply/<variable>')
+def volunteer_apply_id(variable):
+    c.execute('UPDATE event SET complete = "TRUE" WHERE event.eventid = ?', variable)
+    return render_template("volunteer_apply.html")
 
 
 @app.route("/generate", methods=["POST"])
