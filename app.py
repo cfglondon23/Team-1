@@ -48,7 +48,7 @@ def volunteer_apply_id(variable):
 @app.route("/generate", methods=["POST"])
 def generate():
     user_input = request.form["user_input"]
-
+    
     # Create a chat message with the user input as the content
     messages = [{"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": user_input}]
