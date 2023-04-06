@@ -60,7 +60,7 @@ def volunteer_apply():
         if x[-1]  == "TRUE":
             print(x[-1])
             events.remove(x)
-    unique_locations = set(row[7] for row in events)
+    unique_locations = set(row[8] for row in events)
 
     return render_template("volunteer_dashboard.html", events=events, unique_locations=unique_locations)
 
