@@ -54,8 +54,8 @@ events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of codi
           (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology', "FALSE"), 
           (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment', "FALSE"), 
           (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces', "FALSE"), 
-          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance', "TRUE"), 
-          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community', "TRUE"), ]
+          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance', "FALSE"), 
+          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community', "FALSE"), ]
 c.executemany("INSERT INTO event (eventid, name, schid, info, complete) VALUES (?, ?, ?, ?, ?)", events)
 
 # Commit the changes to the database
