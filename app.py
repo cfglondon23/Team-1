@@ -25,7 +25,7 @@ def provider_dashboard():
         done_events = c.fetchall()
 
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info, sofar, required  FROM event WHERE complete='FALSE'")
+        c.execute("SELECT eventid, schid, name, info, required, sofar  FROM event WHERE complete='FALSE'")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
