@@ -21,11 +21,11 @@ def provider_dashboard():
     
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid DESC LIMIT 2")
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid")
         done_events = c.fetchall()
 
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='FALSE' LIMIT 3")
+        c.execute("SELECT eventid, schid, name, info, required, sofar FROM event WHERE complete='FALSE'")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
@@ -57,9 +57,11 @@ def volunteer_apply():
     c.execute("SELECT event.*, school.location, school.name, school.city, complete FROM event INNER JOIN school ON event.schid = school.schid")
     events = c.fetchall()
     for x in events:
-        if x[-1]  == "TRUE":
-            print(x[-1])
+        print(x)
+        if "TRUE" in x:
+            
             events.remove(x)
+
     unique_locations = set(row[7] for row in events)
 
     return render_template("volunteer_dashboard.html", events=events, unique_locations=unique_locations)
