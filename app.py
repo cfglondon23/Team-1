@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 from flask import Flask
 from db import c, conn
 import requests
@@ -23,7 +23,7 @@ def provider_dashboard():
         c.execute("SELECT name, info, date FROM event WHERE complete='TRUE'")
         done_events = c.fetchall()
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT name, info, required, sofar, date  FROM event WHERE complete='FALSE'")
+        c.execute("SELECT name, info, sofar, required, date  FROM event WHERE complete='FALSE'")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
