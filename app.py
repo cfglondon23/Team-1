@@ -1,11 +1,12 @@
+from flask import Flask, render_template
 from flask import Flask
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templateFiles',
+            static_folder='staticFiles')
 
 @app.route('/')
-# Dash Board
-def hello():
-    return 'Hello, World!'
+def index():
+    return render_template('index.html')
 
 @app.route('/provider/dashboard')
 def provider_dashboard():
