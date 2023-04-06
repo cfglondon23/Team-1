@@ -1,8 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from flask import Flask
 from db import c
+import requests
+import json
+import openai
 app = Flask(__name__, template_folder='templates',
             static_folder='static')
+openai.api_key = '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'
 
 @app.route('/')
 def index():
@@ -29,5 +33,40 @@ def volunteer_ranking():
     rows = c.fetchall()
     return render_template("volunteer_ranking.html", rows=rows, enumerate=enumerate)
 
+
+
+@app.route("/generate", methods=["POST"])
+def generate():
+    user_input = request.form["user_input"]
+
+    # Create a chat message with the user input as the content
+    messages = [{"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": user_input}]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",  # Replace with the correct chat model name
+        messages=messages,
+        max_tokens=750,
+        n=1,
+        stop=None,
+        temperature=1.0,
+        top_p=1,
+    )
+
+    # Extract the assistant's response
+    generated_text = response.choices[0].message['content'].strip()
+    print(generated_text)
+    return {"generated_text": generated_text}
+
+
+@app.route('/learn/')
+def learn():
+
+    return render_template("learn.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
