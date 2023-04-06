@@ -17,7 +17,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS volunteers
 c.execute('''CREATE TABLE IF NOT EXISTS school
              (schid INTEGER PRIMARY KEY, location TEXT, city TEXT, name TEXT, info TEXT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS event
-             (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT)''')
+             (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT, complete TEXT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS eventschool
              (eventid INTEGER PRIMARY KEY, schid INTEGER)''')
 
