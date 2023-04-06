@@ -16,7 +16,7 @@ def index():
 
 @app.route('/provider/dashboard', methods=['GET','POST'])
 def provider_dashboard():
-    if request.method=='POST':
+    if request.method=='POST':  
         return redirect(url_for('provider_submit'))
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
@@ -60,7 +60,7 @@ def volunteer_apply():
         if x[-1]  == "TRUE":
             print(x[-1])
             events.remove(x)
-    unique_locations = set(row[7] for row in events)
+    unique_locations = set(row[8] for row in events)
 
     return render_template("volunteer_dashboard.html", events=events, unique_locations=unique_locations)
 
