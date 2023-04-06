@@ -23,11 +23,10 @@
     body {
       background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
       background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
-      height: 100vh;
+      animation: gradient 8s ease infinite;
     }
     .container {
-      margin-top: 150px;
+      margin-top: 50px;
     }
     @keyframes gradient {
       0% {
@@ -41,7 +40,28 @@
       }
     }
   </style>
-  <body class="flex justify-center">
+  <body>
+    <nav>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        class="m-4 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path d="M12 14l9-5-9-5-9 5 9 5z" />
+        <path
+          d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+        />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+        />
+      </svg>
+    </nav>
     <div class="container">
       <div class="row">
         <div
@@ -128,6 +148,7 @@
 
       select.addEventListener("change", () => {
         const selectedValue = select.value;
+        console.log(selectedValue);
         const mapUrl = `https://maps.google.com/maps?width=520&height=400&hl=en&q=%20${selectedValue}()&t=&z=12&ie=UTF8&iwloc=B&output=embed`;
         iframe.src = mapUrl;
       });
