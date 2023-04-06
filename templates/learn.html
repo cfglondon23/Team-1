@@ -66,54 +66,55 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Initialize variables to hold the prompts
-            let mathPrompt = "I want you to act as a math teacher. Your name is mathy, give intro before you respond. I want you to act as a math teacher. I will provide some mathematical equations or concepts, and it will be your job to explain them in easy-to-understand terms.";
-            let englishPrompt = "I want you to act as an English teacher. Your name in englishy, give intro before you respond.  You will be tasked with helping students develop their writing skills. This could include providing prompts for creative writing exercises, giving feedback on drafts, or suggesting online resources for further study.";
-            let sciencePrompt = "I want you to act as a science teacher. Your name is sciency, give intro before you respond. You will be tasked with explaining various scientific concepts and theories to students. This could include providing visual aids or demonstrations, answering questions about scientific phenomena, or suggesting online resources for further study.";
-
-            $("#generate_math").click(function () {
-                let userInput = $("#user_input").val();
-                // Send the math prompt and user input to the server
-                $.post("/generate", { prompt: mathPrompt, user_input: userInput }, function (data) {
-                    $("#generated_text").text(data.generated_text);
-                });
+            // Initialize variable to hold the prompt
+            let eventPrompt = "I want you to act as an event manager. Your name is eventy, give intro before you respond. You will be tasked with organizing and coordinating events, such as conferences, meetings, and parties. This could include managing budgets, hiring vendors and staff, arranging accommodations and transportation, and handling logistics. In your response, you must generate the event description, location, and date seperately(if user does not input, then generate random one yourself)";
+    
+            // Add event listener to copy text button
+            $("#copy_text").click(function () {
+                // Create a new textarea element to hold the generated text
+                let tempTextArea = $("<textarea>");
+                $("body").append(tempTextArea);
+                tempTextArea.val($("#generated_text").text()).select();
+                document.execCommand("copy");
+                tempTextArea.remove();
+                // Show success message
+                $("#copy_text").text("Copied!").addClass("btn-success").removeClass("btn-primary");
             });
-
-            $("#generate_english").click(function () {
-                let userInput = $("#user_input").val();
-                // Send the English prompt and user input to the server
-                $.post("/generate", { prompt: englishPrompt, user_input: userInput }, function (data) {
-                    $("#generated_text").text(data.generated_text);
-                });
+    
+            // Add event listener to dashboard button
+            $("#dashboard").click(function () {
+                window.location.href = "/provider/dashboard";
             });
-
-            $("#generate_science").click(function () {
+    
+            // Add event listener to generate text button
+            $("#generate_text").click(function () {
+                // Reset copy text button
+                $("#copy_text").text("Copy Text").removeClass("btn-success").addClass("btn-primary");
                 let userInput = $("#user_input").val();
-                // Send the science prompt and user input to the server
-                $.post("/generate", { prompt: sciencePrompt, user_input: userInput }, function (data) {
+                // Send the event prompt and user input to the server
+                $.post("/generate", { prompt: eventPrompt, user_input: userInput }, function (data) {
                     $("#generated_text").text(data.generated_text);
                 });
             });
         });
-    </script>
+    </script>    
 </head>
 
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Learn about your subject.</h1>
+        <h1 class="mb-4">Generated AI-assisted event ideas!</h1>
         <div class="mb-3">
             <label for="user_input" class="form-label">Enter your input:</label>
             <textarea class="form-control" id="user_input" rows="4"></textarea>
+            <!-- Add button for event prompt -->
+            <div class="mb-3">
+                <button id="generate_text" class="animated-btn">Generate!</button>
+            </div>
+            <h2 class="mt-4">Generated Text:</h2>
+            <p id="generated_text"></p>
         </div>
-        <!-- Add buttons for different prompts -->
-        <div class="mb-3">
-            <button id="generate_math" class="animated-btn me-3">Math Teacher</button>
-            <button id="generate_english" class="animated-btn me-3">English Teacher</button>
-            <button id="generate_science" class="animated-btn">Science Teacher</button>
-        </div>
-        <h2 class="mt-4">Generated Text:</h2>
-        <p id="generated_text"></p>
-    </div>
+        <button id="copy_text" class="animated-btn">Copy Text</button>
+        <button id="dashboard" class="animated-btn">GoTo Dashboard</button>
 </body>
 
 </html>
