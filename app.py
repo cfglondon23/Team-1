@@ -24,7 +24,9 @@ def provider_submit():
 def volunteer_apply():
     c.execute("SELECT event.*, school.location, school.name, school.city FROM event INNER JOIN school ON event.schid = school.schid")
     events = c.fetchall()
-    return render_template("volunteer_dashboard.html", events=events)
+    unique_locations = set(row[7] for row in events)
+
+    return render_template("volunteer_dashboard.html", events=events, unique_locations=unique_locations)
 
 
 @app.route('/volunteer/ranking')

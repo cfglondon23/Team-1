@@ -59,8 +59,8 @@
           <label for="locationFilter" class="form-label">Filter by location:</label>
           <select class="form-select" id="locationFilter">
             <option value="all">All locations</option>
-            {% for row in events %}
-            <option value="{{row[7]}}">{{row[7]}}</option>
+            {% for row in unique_locations %}
+            <option value="{{row}}">{{row}}</option>
 
             {% endfor %}
           </select>
