@@ -2,9 +2,6 @@ from flask import Flask, render_template
 from flask import Flask
 <<<<<<< HEAD
 
-=======
-from db import c
->>>>>>> database
 app = Flask(__name__, template_folder='templates',
             static_folder='static')
 
