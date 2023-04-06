@@ -1,5 +1,4 @@
-
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask import Flask
 from db import c, conn
 import requests
@@ -15,9 +14,22 @@ openai.api_key = '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'
 def index():
     return render_template('index.html')
 
-@app.route('/provider/dashboard')
+@app.route('/provider/dashboard', methods=['GET','POST'])
 def provider_dashboard():
-    return "provider_dashboard"
+    if request.method=='POST':
+        return redirect(url_for('provider_submit'))
+    
+    else:
+        # Fetch the last 2 'Done' events from the database, selecting only desired columns
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid DESC LIMIT 2")
+        done_events = c.fetchall()
+
+        # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='FALSE' LIMIT 3")
+        in_progress_events = c.fetchall()
+
+        # Render the template and pass the fetched event data to be used in the template
+        return render_template('provider_dashboard.html', done_events=done_events, in_progress_events=in_progress_events)
 
 @app.route('/provider/submit', methods=['POST','GET'])
 def provider_submit():
