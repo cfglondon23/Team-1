@@ -86,9 +86,9 @@
             <div class="form-group" style="font-size: small">
               <div class="form-group" style="font-size: small">
                 <label class="text-white">USER TYPE</label><br />
-                <select class="custom-select">
-                  <option selected>Volunteer</option>
-                  <option value="2">Education Provider</option>
+                <select class="custom-select" id="user_selection">
+                  <option value="volunteer">Volunteer</option>
+                  <option value="education">Education Provider</option>
                 </select>
               </div>
               <label class="text-white">LOCATION</label><br />
@@ -148,9 +148,14 @@
 
       select.addEventListener("change", () => {
         const selectedValue = select.value;
-        console.log(selectedValue);
         const mapUrl = `https://maps.google.com/maps?width=520&height=400&hl=en&q=%20${selectedValue}()&t=&z=12&ie=UTF8&iwloc=B&output=embed`;
         iframe.src = mapUrl;
+      });
+
+      const selectUser = document.getElementById("user_selection");
+      selectUser.addEventListener("change", () => {
+        const userValue = selectUser.value;
+        console.log(userValue);
       });
     </script>
   </body>
