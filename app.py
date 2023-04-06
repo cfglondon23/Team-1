@@ -16,9 +16,9 @@ def provider_dashboard():
 def provider_submit():
     return "provider_submit"
 
-@app.route('/volunteer/apply')
+@app.route('/volunteer/dashboard')
 def volunteer_apply():
-    return "volunteer_apply"
+    return "volunteer_dashboard"
 
 @app.route('/volunteer/ranking')
 def volunteer_ranking():
