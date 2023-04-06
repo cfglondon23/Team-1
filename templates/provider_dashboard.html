@@ -90,6 +90,7 @@ th, td {
             <th>Sch ID</th>
             <th>Name</th>
             <th>Info</th>
+            <th>Location</th>
           </tr>
         </thead>
         <tbody>
@@ -99,6 +100,7 @@ th, td {
                 <td>{{ event[1] }}</td>
                 <td>{{ event[2] }}</td>
                 <td>{{ event[3] }}</td>
+                <td>{{ event[4] }}</td>
             </tr>
             {% endfor %}
           <!-- Add table rows here -->
@@ -115,6 +117,7 @@ th, td {
             <th>Name</th>
             <th>Info</th>
             <th>Volunteers so far/Volunteers required</th>
+            <th>Location</th>
           </tr>
         </thead>
         <tbody>
@@ -125,6 +128,7 @@ th, td {
                 <td>{{ event[2] }}</td>
                 <td>{{ event[3] }}</td>
                 <td>{{ event[5] }}/{{ event[4] }}</td>
+                <td>{{ event[6] }}</td>
             {% endfor %}
           <!-- Add table rows here -->
         </tbody>

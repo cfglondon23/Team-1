@@ -20,11 +20,11 @@ def provider_dashboard():
     
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid")
+        c.execute("SELECT eventid, event.schid, event.name, event.info, school.location FROM event INNER JOIN school on event.schid = school.schid WHERE complete='TRUE' ORDER BY eventid")
         done_events = c.fetchall()
 
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info, required, sofar FROM event WHERE complete='FALSE'")
+        c.execute("SELECT eventid, event.schid, event.name, event.info, required, sofar, school.location FROM event INNER JOIN school on event.schid = school.schid  WHERE complete='FALSE'")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
