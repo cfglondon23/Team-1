@@ -97,7 +97,7 @@ def generate():
         top_p=1,
     )
 
-    # Extract the assistant's response
+    # Extract the assistant's response 
     generated_text = response.choices[0].message['content'].strip()
     print(generated_text)
     return {"generated_text": generated_text}
