@@ -1,2 +1,6 @@
 venv1
+<<<<<<< HEAD
 __pycache__
+=======
+__pycache__
+>>>>>>> database
