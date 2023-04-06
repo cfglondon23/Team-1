@@ -26,6 +26,7 @@ def volunteer_apply():
     events = c.fetchall()
     for x in events:
         if x[-1]  == "TRUE":
+            print(x[-1])
             events.remove(x)
     unique_locations = set(row[7] for row in events)
 
