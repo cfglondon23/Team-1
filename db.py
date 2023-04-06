@@ -18,6 +18,8 @@ c.execute('''CREATE TABLE IF NOT EXISTS school
              (schid INTEGER PRIMARY KEY, location TEXT, city TEXT, name TEXT, info TEXT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS event
              (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS eventschool
+             (eventid INTEGER PRIMARY KEY, schid INTEGER)''')
 
 
 # Create a Faker instance to generate random names
