@@ -1,8 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 from flask import Flask
 from db import c
-import requests
-import json
 import openai
 app = Flask(__name__, template_folder='templates',
             static_folder='static')
@@ -43,7 +41,7 @@ def volunteer_ranking():
 
 @app.route('/volunteer/apply/<variable>')
 def volunteer_apply_id(variable):
-    c.execute('UPDATE event SET complete = "TRUE" WHERE event.eventid = ?', variable)
+    c.execute('UPDATE event SET complete = "TRUE" WHERE event.eventid = ?', (variable,))
     return render_template("volunteer_apply.html")
 
 
