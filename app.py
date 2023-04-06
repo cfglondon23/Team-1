@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask import Flask
-from db import c
+from db import c, conn
 import sqlite3
 app = Flask(__name__, template_folder='templates',
             static_folder='static')
@@ -14,22 +14,24 @@ def index():
 def provider_dashboard():
     return "provider_dashboard"
 
-@app.route('/provider/submit', methods=['POST'])
+@app.route('/provider/submit', methods=['POST','GET'])
 def provider_submit():
-    if request.method == "POST":
+    if request.method == 'POST':
         title = request.form.get("title")
-        school = request.form.get("school")
         description = request.form.get("description")
         location = request.form.get("location")
         city = request.form.get("city")
 
         # find the school id based on the school name, city and location
-        queryString = 'SELECT * FROM school WHERE name = ? AND city = ? AND location = ?'
-        c.execute(queryString, (school,city, location))
+        queryString = 'SELECT * FROM school WHERE schid = ?'
+        schid = 1
+        c.execute(queryString, (schid,))
+
         school = c.fetchone()
         schoolId = school[0]
-
-        c.execture(f"INSERT INTO event (name, schid, info) VALUES ('{title}', '{schoolId}', {description})")
+    
+        c.execute(f"INSERT INTO event (name, schid, info) VALUES ('{title}', '{schoolId}', '{description}')")
+        conn.commit()
         return render_template('submit_succesfully.html')
     return render_template("provider_submit.html")
 
