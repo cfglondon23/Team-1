@@ -88,7 +88,7 @@
                 <label class="text-white">USER TYPE</label><br />
                 <select class="custom-select" id="user_selection">
                   <option value="volunteer">Volunteer</option>
-                  <option value="education">Education Provider</option>
+                  <option value="provider">Education Provider</option>
                 </select>
               </div>
               <label class="text-white">LOCATION</label><br />
@@ -103,7 +103,7 @@
 
             <div class="form-group">
               <button
-                id="search"
+                id="register"
                 type="button"
                 class="btn btn-primary btn-lg"
                 style="float: right"
@@ -153,9 +153,17 @@
       });
 
       const selectUser = document.getElementById("user_selection");
-      selectUser.addEventListener("change", () => {
+      const register = document.getElementById("register");
+      register.addEventListener("click", () => {
         const userValue = selectUser.value;
-        console.log(userValue);
+        event.preventDefault();
+        if (userValue == "volunteer") {
+          const route = `/${userValue}/apply`;
+          window.location.href = route;
+        } else {
+          const route = `/provider/dashboard`;
+          window.location.href = route;
+        }
       });
     </script>
   </body>
