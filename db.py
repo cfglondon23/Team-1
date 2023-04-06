@@ -48,9 +48,9 @@ schools = [(1, 'Oxford', 'Oxfordshire', 'Oxford High School', 'A leading indepen
            (10, 'Limpsfield', 'Surrey', 'Hazelwood School', 'A co-educational school for children aged 3-13 in Surrey')]
 c.executemany("INSERT INTO school (schid, location, city, name, info) VALUES (?, ?, ?, ?, ?)", schools)
 
-events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming', "FALSE"), 
-          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students', "FALSE"), 
-          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun', "FALSE"), 
+events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming', "TRUE"), 
+          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students', "TRUE"), 
+          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun', "TRUE"), 
           (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology', "FALSE"), 
           (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment', "FALSE"), 
           (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces', "FALSE"), 

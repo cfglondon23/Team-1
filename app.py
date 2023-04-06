@@ -49,7 +49,7 @@ def provider_submit():
     
         c.execute(f"INSERT INTO event (name, schid, info) VALUES ('{title}', '{schoolId}', '{description}')")
         conn.commit()
-        return render_template('submit_succesfully.html')
+        return redirect(url_for('provider_dashboard'))
     return render_template("provider_submit.html")
 
 @app.route('/volunteer/apply')
