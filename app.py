@@ -1,6 +1,5 @@
-from flask import Flask, render_template
-from flask import Flask
-<<<<<<< HEAD
+from flask import Flask, render_template, request, redirect, url_for
+from db import c, conn
 
 app = Flask(__name__, template_folder='templates',
             static_folder='static')
@@ -9,9 +8,22 @@ app = Flask(__name__, template_folder='templates',
 def index():
     return render_template('index.html')
 
-@app.route('/provider/dashboard')
+@app.route('/provider/dashboard', methods=['GET','POST'])
 def provider_dashboard():
-    return "provider_dashboard"
+    if request.method=='POST':
+        return redirect(url_for('provider_submit'))
+    
+    else:
+        # Fetch the last 2 'Done' events from the database, selecting only desired columns
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid DESC LIMIT 2")
+        done_events = c.fetchall()
+
+        # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='FALSE' LIMIT 3")
+        in_progress_events = c.fetchall()
+
+        # Render the template and pass the fetched event data to be used in the template
+        return render_template('provider_dashboard.html', done_events=done_events, in_progress_events=in_progress_events)
 
 @app.route('/provider/submit')
 def provider_submit():
@@ -19,20 +31,11 @@ def provider_submit():
 
 @app.route('/volunteer/apply')
 def volunteer_apply():
-    c.execute("SELECT event.*, school.location, school.name, school.city FROM event INNER JOIN school ON event.schid = school.schid")
-    events = c.fetchall()
-    return render_template("volunteer_dashboard.html", events=events)
-
+    return "volunteer_apply"
 
 @app.route('/volunteer/ranking')
 def volunteer_ranking():
-<<<<<<< HEAD
     return "volunteer_ranking"
-=======
-    c.execute("SELECT volunteerid, firstname, lastname, points, location, RANK () OVER ( ORDER BY points DESC) Rank FROM volunteers ORDER BY Rank ASC")
-    rows = c.fetchall()
-    return render_template("volunteer_ranking.html", rows=rows, enumerate=enumerate)
->>>>>>> database
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
