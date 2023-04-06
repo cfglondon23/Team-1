@@ -16,9 +16,17 @@ def provider_dashboard():
 def provider_submit():
     return "provider_submit"
 
-@app.route('/volunteer/apply')
-def volunteer_apply():
-    c.execute("SELECT * FROM event")
+@app.route('/volunteer/apply/<city>')
+def volunteer_apply(city):
+    city = str(city)
+    # Get the school id for that city
+    c.execute("SELECT * FROM school WHERE city = ?",(city,))
+    school_id_in_the_city = [x[0] for x in c.fetchall()]
+    school_locations = [x[1] for x in c.fetchall()]
+    for ids in school_id_in_the_city:
+        print(ids)
+    statement = f"SELECT * FROM event WHERE schid IN ({','.join('?'*len(school_id_in_the_city))})"
+    c.execute(statement,school_id_in_the_city)
     events = c.fetchall()
     return render_template("volunteer_dashboard.html", events=events)
 

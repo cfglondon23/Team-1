@@ -47,7 +47,7 @@ schools = [(1, 'Oxford', 'Oxfordshire', 'Oxford High School', 'A leading indepen
 c.executemany("INSERT INTO school (schid, location, city, name, info) VALUES (?, ?, ?, ?, ?)", schools)
 
 # insert some mock data into the event table
-events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming'), 
+events = [(1, 'Coding Workshop', 1, 'Learn the basics of coding and programming'), 
           (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students'), 
           (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun'), 
           (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology'), 
