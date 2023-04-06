@@ -48,12 +48,14 @@ schools = [(1, 'Oxford', 'Oxfordshire', 'Oxford High School', 'A leading indepen
            (10, 'Limpsfield', 'Surrey', 'Hazelwood School', 'A co-educational school for children aged 3-13 in Surrey')]
 c.executemany("INSERT INTO school (schid, location, city, name, info) VALUES (?, ?, ?, ?, ?)", schools)
 
-# insert some mock data into the event table
 events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming'), 
           (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students'), 
           (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun'), 
           (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology'), 
-          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment')]
+          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment'), 
+          (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces'), 
+          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance'), 
+          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community'), ]
 c.executemany("INSERT INTO event (eventid, name, schid, info) VALUES (?, ?, ?, ?)", events)
 
 # Commit the changes to the database
