@@ -21,11 +21,11 @@ def provider_dashboard():
     
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid DESC LIMIT 2")
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE'")
         done_events = c.fetchall()
 
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='FALSE' LIMIT 3")
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='FALSE'")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
@@ -36,8 +36,7 @@ def provider_submit():
     if request.method == 'POST':
         title = request.form.get("title")
         description = request.form.get("description")
-        location = request.form.get("location")
-        city = request.form.get("city")
+        required = request.form.get("numberOfPeople")
 
         # find the school id based on the school name, city and location
         queryString = 'SELECT * FROM school WHERE schid = ?'
@@ -46,8 +45,10 @@ def provider_submit():
 
         school = c.fetchone()
         schoolId = school[0]
+        complete = "FALSE"
+        sofar  = 0
     
-        c.execute(f"INSERT INTO event (name, schid, info) VALUES ('{title}', '{schoolId}', '{description}')")
+        c.execute(f"INSERT INTO event (name, schid, info, complete, sofar, required) VALUES ('{title}', '{schoolId}', '{description}', '{complete}','{sofar}','{required}')")
         conn.commit()
         return redirect(url_for('provider_dashboard'))
     return render_template("provider_submit.html")
@@ -75,7 +76,7 @@ def volunteer_ranking():
 
 @app.route('/volunteer/apply/<variable>')
 def volunteer_apply_id(variable):
-    c.execute('UPDATE event SET complete = "TRUE" WHERE event.eventid = ?', variable)
+    c.execute('UPDATE event SET complete = TRUE WHERE eventid = ?', (variable,))
     return render_template("volunteer_apply.html")
 
 
