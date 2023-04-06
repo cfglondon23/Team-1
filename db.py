@@ -17,7 +17,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS volunteers
 c.execute('''CREATE TABLE IF NOT EXISTS school
              (schid INTEGER PRIMARY KEY, location TEXT, city TEXT, name TEXT, info TEXT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS event
-             (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT, complete TEXT)''')
+             (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT, complete TEXT, sofar INT, required INT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS eventschool
              (eventid INTEGER PRIMARY KEY, schid INTEGER)''')
 
@@ -48,15 +48,15 @@ schools = [(1, 'Oxford', 'Oxfordshire', 'Oxford High School', 'A leading indepen
            (10, 'Limpsfield', 'Surrey', 'Hazelwood School', 'A co-educational school for children aged 3-13 in Surrey')]
 c.executemany("INSERT INTO school (schid, location, city, name, info) VALUES (?, ?, ?, ?, ?)", schools)
 
-events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming', "TRUE"), 
-          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students', "TRUE"), 
-          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun', "TRUE"), 
-          (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology', "FALSE"), 
-          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment', "FALSE"), 
-          (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces', "FALSE"), 
-          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance', "FALSE"), 
-          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community', "FALSE"), ]
-c.executemany("INSERT INTO event (eventid, name, schid, info, complete) VALUES (?, ?, ?, ?, ?)", events)
+events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming', "TRUE", 10, 10), 
+          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students', "TRUE", 5, 5), 
+          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun', "TRUE", 4, 4), 
+          (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology', "FALSE", 1, 3), 
+          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment', "FALSE", 2, 10), 
+          (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces', "FALSE", 1, 12), 
+          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance', "FALSE", 3, 7), 
+          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community', "FALSE", 3, 5), ]
+c.executemany("INSERT INTO event (eventid, name, schid, info, complete, sofar, required) VALUES (?, ?, ?, ?, ?, ?, ?)", events)
 
 # Commit the changes to the database
 conn.commit()

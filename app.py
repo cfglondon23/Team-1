@@ -75,7 +75,7 @@ def volunteer_ranking():
 
 @app.route('/volunteer/apply/<variable>')
 def volunteer_apply_id(variable):
-    c.execute('UPDATE event SET complete = "TRUE" WHERE event.eventid = ?', variable)
+    c.execute('UPDATE event SET complete = TRUE WHERE eventid = ?', (variable,))
     return render_template("volunteer_apply.html")
 
 
