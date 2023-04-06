@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Provider Dashboard</title>
+    <style>
+        h1 {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        /* CSS to create a two-column layout */
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* CSS to set width for each table */
+        .table-container table {
+            width: 48%; 
+        }
+
+        .add-button {
+            font-size: 40px; /* You can adjust the font size as needed */
+            position: fixed;
+            bottom: 10px; /* You can adjust the distance from the bottom as needed */
+            right: 10px; /* You can adjust the distance from the right as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>Provider Dashboard</h1>
+    <div class="table-container"></div>
+    <h2>Done</h2>
+    <table>
+        <tr>
+            <th>Event ID</th>
+            <th>Sch ID</th>
+            <th>Name</th>
+            <th>Info</th>
+        </tr>
+        {% for event in done_events %}
+        <tr>
+            <td>{{ event[0] }}</td>
+            <td>{{ event[1] }}</td>
+            <td>{{ event[2] }}</td>
+            <td>{{ event[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>In Progress</h2>
+    <table>
+        <tr>
+            <th>Event ID</th>
+            <th>Sch ID</th>
+            <th>Name</th>
+            <th>Info</th>
+        </tr>
+        {% for event in in_progress_events %}
+        <tr>
+            <td>{{ event[0] }}</td>
+            <td>{{ event[1] }}</td>
+            <td>{{ event[2] }}</td>
+            <td>{{ event[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/provider/submit" class="add-button">+</a>
+</body>
+</html>
