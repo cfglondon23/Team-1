@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask import Flask
 from db import c, conn
 import requests
@@ -16,14 +16,16 @@ def index():
 
 @app.route('/provider/dashboard', methods=['GET','POST'])
 def provider_dashboard():
-    if request.method=='POST':  
+    if request.method=='POST':
         return redirect(url_for('provider_submit'))
+    
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
-        c.execute("SELECT name, info, date FROM event WHERE complete='TRUE'")
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE' ORDER BY eventid DESC LIMIT 2")
         done_events = c.fetchall()
+
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT name, info, sofar, required, date  FROM event WHERE complete='FALSE'")
+        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='FALSE' LIMIT 3")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
@@ -34,8 +36,8 @@ def provider_submit():
     if request.method == 'POST':
         title = request.form.get("title")
         description = request.form.get("description")
-        required = request.form.get("numberOfPeople")
-        date = request.form.get("date")
+        location = request.form.get("location")
+        city = request.form.get("city")
 
         # find the school id based on the school name, city and location
         queryString = 'SELECT * FROM school WHERE schid = ?'
@@ -44,10 +46,8 @@ def provider_submit():
 
         school = c.fetchone()
         schoolId = school[0]
-        complete = "FALSE"
-        sofar  = 0
     
-        c.execute(f"INSERT INTO event (name, schid, info, complete, sofar, required, date) VALUES ('{title}', '{schoolId}', '{description}', '{complete}','{sofar}','{required}','{date}')")
+        c.execute(f"INSERT INTO event (name, schid, info) VALUES ('{title}', '{schoolId}', '{description}')")
         conn.commit()
         return redirect(url_for('provider_dashboard'))
     return render_template("provider_submit.html")
@@ -60,7 +60,7 @@ def volunteer_apply():
         if x[-1]  == "TRUE":
             print(x[-1])
             events.remove(x)
-    unique_locations = set(row[8] for row in events)
+    unique_locations = set(row[7] for row in events)
 
     return render_template("volunteer_dashboard.html", events=events, unique_locations=unique_locations)
 
@@ -82,24 +82,26 @@ def volunteer_apply_id(variable):
 @app.route("/generate", methods=["POST"])
 def generate():
     user_input = request.form["user_input"]
-
-    # Create a chat message with the user input as the content
-    messages = [{"role": "system", "content": "You are a helpful assistant."},
+    prompt = request.form["prompt"]
+    print("user_input:",user_input)
+    print("prompt:",prompt)
+    # Create a chat message with the user input and prompt as the content
+    messages = [{"role": "system", "content": prompt},
                 {"role": "user", "content": user_input}]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",  # Replace with the correct chat model name
+        model="gpt-4",
         messages=messages,
-        max_tokens=750,
-        n=1,
-        stop=None,
         temperature=1.0,
+        max_tokens=750,
         top_p=1,
+        stop=None,
+        n=1,
     )
 
-    # Extract the assistant's response 
+    # Extract the assistant's response
     generated_text = response.choices[0].message['content'].strip()
-    print(generated_text)
+    # print(generated_text)
     return {"generated_text": generated_text}
 
 
