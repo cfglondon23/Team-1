@@ -18,14 +18,12 @@ def index():
 def provider_dashboard():
     if request.method=='POST':
         return redirect(url_for('provider_submit'))
-    
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info FROM event WHERE complete='TRUE'")
+        c.execute("SELECT name, info, date FROM event WHERE complete='TRUE'")
         done_events = c.fetchall()
-
         # Fetch the first 3 'In Progress' events from the database, selecting only desired columns
-        c.execute("SELECT eventid, schid, name, info, required, sofar  FROM event WHERE complete='FALSE'")
+        c.execute("SELECT name, info, required, sofar, date  FROM event WHERE complete='FALSE'")
         in_progress_events = c.fetchall()
 
         # Render the template and pass the fetched event data to be used in the template
@@ -37,6 +35,7 @@ def provider_submit():
         title = request.form.get("title")
         description = request.form.get("description")
         required = request.form.get("numberOfPeople")
+        date = request.form.get("date")
 
         # find the school id based on the school name, city and location
         queryString = 'SELECT * FROM school WHERE schid = ?'
@@ -48,7 +47,7 @@ def provider_submit():
         complete = "FALSE"
         sofar  = 0
     
-        c.execute(f"INSERT INTO event (name, schid, info, complete, sofar, required) VALUES ('{title}', '{schoolId}', '{description}', '{complete}','{sofar}','{required}')")
+        c.execute(f"INSERT INTO event (name, schid, info, complete, sofar, required, date) VALUES ('{title}', '{schoolId}', '{description}', '{complete}','{sofar}','{required}','{date}')")
         conn.commit()
         return redirect(url_for('provider_dashboard'))
     return render_template("provider_submit.html")

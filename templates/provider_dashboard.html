@@ -86,10 +86,8 @@ th, td {
       <table class="table">
         <thead>
           <tr>
-            <th>Event ID</th>
-            <th>Sch ID</th>
-            <th>Name</th>
-            <th>Info</th>
+            <th>Title</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
@@ -97,8 +95,7 @@ th, td {
             <tr>
                 <td>{{ event[0] }}</td>
                 <td>{{ event[1] }}</td>
-                <td>{{ event[2] }}</td>
-                <td>{{ event[3] }}</td>
+                
             </tr>
             {% endfor %}
           <!-- Add table rows here -->
@@ -110,11 +107,10 @@ th, td {
       <table class="table">
         <thead>
           <tr>
-            <th>Event ID</th>
-            <th>Sch ID</th>
-            <th>Name</th>
-            <th>Info</th>
+            <th>Title</th>
+            <th>Description</th>
             <th>Volunteers so far/Volunteers required</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -122,9 +118,8 @@ th, td {
             <tr>
                 <td>{{ event[0] }}</td>
                 <td>{{ event[1] }}</td>
-                <td>{{ event[2] }}</td>
-                <td>{{ event[3] }}</td>
-                <td>{{ event[5] }}/{{ event[4] }}</td>
+                <td>{{ event[3] }}/{{ event[2] }}</td>
+                <td>{{event[4]}}</td>
             {% endfor %}
           <!-- Add table rows here -->
         </tbody>

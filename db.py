@@ -1,7 +1,7 @@
 import sqlite3
 from faker import Faker
 import random
-
+import datetime
 # Create a connection to the database
 conn = sqlite3.connect('example.db', check_same_thread=False)
 
@@ -17,7 +17,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS volunteers
 c.execute('''CREATE TABLE IF NOT EXISTS school
              (schid INTEGER PRIMARY KEY, location TEXT, city TEXT, name TEXT, info TEXT)''')
 c.execute('''CREATE TABLE IF NOT EXISTS event
-             (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT, complete TEXT, sofar INT, required INT)''')
+             (eventid INTEGER PRIMARY KEY, name TEXT, schid INT, info TEXT, complete TEXT, sofar INT, required INT, date DATE)''')
 c.execute('''CREATE TABLE IF NOT EXISTS eventschool
              (eventid INTEGER PRIMARY KEY, schid INTEGER)''')
 
@@ -48,15 +48,15 @@ schools = [(1, 'Oxford', 'Oxfordshire', 'Oxford High School', 'A leading indepen
            (10, 'Limpsfield', 'Surrey', 'Hazelwood School', 'A co-educational school for children aged 3-13 in Surrey')]
 c.executemany("INSERT INTO school (schid, location, city, name, info) VALUES (?, ?, ?, ?, ?)", schools)
 
-events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming', "TRUE", 10, 10), 
-          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students', "TRUE", 5, 5), 
-          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun', "TRUE", 4, 4), 
-          (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology', "FALSE", 1, 3), 
-          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment', "FALSE", 2, 10), 
-          (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces', "FALSE", 1, 12), 
-          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance', "FALSE", 3, 7), 
-          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community', "FALSE", 3, 5), ]
-c.executemany("INSERT INTO event (eventid, name, schid, info, complete, sofar, required) VALUES (?, ?, ?, ?, ?, ?, ?)", events)
+events = [(1, 'Coding Workshop', random.randint(1, 5), 'Learn the basics of coding and programming', "TRUE", 10, 10, datetime.date(2022, 3,7)), 
+          (2, 'Art and Design Exhibition', random.randint(1, 5), 'View and appreciate the creative talents of students', "TRUE", 5, 5,datetime.date(2023, 1,7)), 
+          (3, 'Sports Day', random.randint(6, 10), 'Compete in a variety of athletic events and have fun', "TRUE", 4, 4,datetime.date(2023, 2,15)), 
+          (4, 'Science Fair', random.randint(1, 5), 'Showcase and explore the wonders of science and technology', "FALSE", 1, 3, datetime.date(2023, 8,10)), 
+          (5, 'Maths Challenge', random.randint(6, 10), 'Test your mathematical abilities in a fun and competitive environment', "FALSE", 2, 10, datetime.date(2023, 5,21)), 
+          (6, 'Music Concert', random.randint(1, 10), 'Listen to talented musicians perform classical and contemporary pieces', "FALSE", 1, 12, datetime.date(2023, 6,30)), 
+          (7, 'Drama Production', random.randint(1, 10), 'Watch aspiring actors showcase their acting skills in an exciting performance', "FALSE", 3, 7, datetime.date(2023, 12,24)), 
+          (8, 'Charity Fundraiser', random.randint(1, 10), 'Raise money for a good cause and make a positive impact on the community', "FALSE", 3, 5,datetime.date(2023, 8,14)), ]
+c.executemany("INSERT INTO event (eventid, name, schid, info, complete, sofar, required, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", events)
 
 # Commit the changes to the database
 conn.commit()
