@@ -54,19 +54,29 @@
   </style>
   <body>
     <div class="container">
-      <h1 class="text-center my-5">Upcoming Events</h1>
+        <h1 class="text-center my-5">Upcoming Events</h1>
+        <div class="mb-4">
+          <label for="locationFilter" class="form-label">Filter by location:</label>
+          <select class="form-select" id="locationFilter">
+            <option value="all">All locations</option>
+            {% for row in unique_locations %}
+            <option value="{{row}}">{{row}}</option>
+
+            {% endfor %}
+          </select>
+        </div>
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for row in events %}<!-- Event cards will be added here -->
 
         <div class="col">
-            <div class="card h-100 shadow-sm event-card" style="animation-delay: 0s;">
+            <div class="card h-100 shadow-sm event-card" data-location="{{row[7]}}" "animation-delay: 0s;">
                
               <div class="card-body">
                 <h4 class="card-title">{{row[1]}}</h4>
                 <h5 class="card-subtitle mb-2 text-muted">{{row[3]}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{row[5]}}</h6>
-                <p class="card-text">{{row[4]}}, {{row[6]}}</p>
-                <a href="#" class="btn btn-primary">Apply</a>
+                <h6 class="card-subtitle mb-2 text-muted">{{row[7]}}</h6>
+                <p class="card-text">{{row[5]}}, {{row[6]}}</p>
+                <a href="/volunteer/apply/{{row[0]}}" class="btn btn-primary">Apply</a>
               </div>
 
             
@@ -77,5 +87,24 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybB3rZCCRmRjwcIz3r13lw3PBXyW1X9z8x5lTmRo0xdeBb+zD"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"></script>
+    <script>
+        document.getElementById("locationFilter").addEventListener("change", function () {
+          const selectedLocation = this.value;
+          const eventCards = document.querySelectorAll(".event-card");
+      
+          eventCards.forEach((card) => {
+            const cardLocation = card.getAttribute("data-location");
+      
+            if (selectedLocation === "all" || cardLocation === selectedLocation) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      </script>
+      
   </body>
+
+
   
