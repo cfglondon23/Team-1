@@ -29,7 +29,7 @@ fake = Faker()
 cities = ['London', 'Birmingham', 'Leeds', 'Sheffield', 'Bradford', 'Manchester', 'Liverpool', 'Newcastle upon Tyne', 'Nottingham', 'Bristol', 'Brighton', 'Cambridge', 'Canterbury', 'Chester', 'Coventry', 'Durham', 'Exeter', 'Gloucester', 'Hull', 'Lancaster', 'Leicester', 'Lincoln', 'Oxford', 'Peterborough', 'Plymouth', 'Portsmouth', 'Reading', 'St Albans', 'Salisbury', 'Southampton', 'Swansea', 'Wolverhampton', 'York']
 
 # Generate 1000 rows of dummy data
-for i in range(20):
+for i in range(25):
     firstname = fake.first_name()
     lastname = fake.last_name()
     points = random.randint(0, 250)

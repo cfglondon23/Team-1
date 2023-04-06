@@ -16,7 +16,7 @@ def index():
 
 @app.route('/provider/dashboard', methods=['GET','POST'])
 def provider_dashboard():
-    if request.method=='POST':
+    if request.method=='POST':  
         return redirect(url_for('provider_submit'))
     else:
         # Fetch the last 2 'Done' events from the database, selecting only desired columns
